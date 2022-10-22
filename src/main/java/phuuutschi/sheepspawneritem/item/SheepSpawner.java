@@ -6,19 +6,21 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
-public class SheepSpawnItem extends Item {
+public class SheepSpawner extends Item {
+
+    public static final String ItemName = "sheepspawner";
 
     private static final Logger LOGGER = LogUtils.getLogger();
+
     private static final Item.Properties ItemProperties = new Item.Properties()
             .stacksTo(1)
             .tab(CreativeModeTab.TAB_TOOLS);
 
-    public SheepSpawnItem() {
+    public SheepSpawner() {
         super(ItemProperties);
     }
 
@@ -38,9 +40,7 @@ public class SheepSpawnItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    public static void register(IEventBus eventBus) {
-        var ItemRegister = DeferredRegister.create(ForgeRegistries.ITEMS, "sheepspawneritem");
-        ItemRegister.register(eventBus);
-        ItemRegister.register("sheepspawner", SheepSpawnItem::new);
+    public static RegistryObject<Item> register(DeferredRegister<Item> ItemRegister) {
+        return ItemRegister.register(ItemName, SheepSpawner::new);
     }
 }
